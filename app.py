@@ -13,7 +13,7 @@ logger.setLevel(logging.INFO)
 
 # --- Command Line ---
 parser = argparse.ArgumentParser(description="Vevor Inverter → MQTT Bridge for Home Assistant")
-parser.add_argument("--modbus-port", default="/dev/ttyUSB0", help="Serial port (default: /dev/ttyUSB0)")
+parser.add_argument("--modbus-port", default="/dev/ttyUSB1", help="Serial port (default: /dev/ttyUSB0)")
 parser.add_argument("--mqtt-host", default="localhost", help="MQTT broker host")
 parser.add_argument("--mqtt-port", type=int, default=1883, help="MQTT port (default: 1883)")
 parser.add_argument("--mqtt-user", default="", help="MQTT username")
@@ -180,6 +180,9 @@ def main_loop():
                 BattAvgI = regs[232 - 200] / 10.0
                 InvAvgI = regs[233 - 200] / 10.0
                 PVAvgI  = regs[234 - 200] / 10.0
+            
+                if Pin >= 65500 or Pin > 5000:
+                    Pin = 0
 
                 decoded_status = decode_status_bits(StatusCode)
                 logger.info(f"Decoded Status: {decoded_status}")

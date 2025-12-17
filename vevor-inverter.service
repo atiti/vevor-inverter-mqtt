@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=pi
 WorkingDirectory=/home/pi/vevor-inverter-mqtt
-ExecStart=/home/pi/vevor-inverter-mqtt/.venv/bin/python app.py --mqtt-host 192.168.1.2 --poll 5
+ExecStart=/home/pi/vevor-inverter-mqtt/.venv/bin/python app.py --modbus-port /dev/ttyVevor --mqtt-host 192.168.1.2 --poll 5
 Restart=always
 RestartSec=10
 Environment=PYTHONUNBUFFERED=1
